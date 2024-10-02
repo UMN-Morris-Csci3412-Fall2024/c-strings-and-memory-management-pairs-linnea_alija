@@ -33,19 +33,14 @@ char *palindrome(char const *str) {
     ++i;
   }
 
-  free(rev);
+  free(rev);  // Free the reversed string
 
   if (result) {
-    answer = (char*) calloc(4, sizeof(char));
-    answer[0] = 'Y';
-    answer[1] = 'e';
-    answer[2] = 's';
-    answer[3] = '\0';
+    answer = (char*) calloc(4, sizeof(char));  // Allocates 4 bytes for "Yes\0"
+    strcpy(answer, "Yes");
   } else {
-    answer = (char*) calloc(3, sizeof(char));
-    answer[0] = 'N';
-    answer[1] = 'o';
-    answer[2] = '\0';
+    answer = (char*) calloc(3, sizeof(char));  // Allocates 3 bytes for "No\0"
+    strcpy(answer, "No");
   }
 
   return answer;
