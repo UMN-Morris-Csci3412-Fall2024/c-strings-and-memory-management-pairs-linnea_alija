@@ -1,47 +1,53 @@
 #include <gtest/gtest.h>
-
 #include "disemvowel.h"
 
 TEST(Disemvowel, HandleEmptyString) {
-  ASSERT_STREQ("", disemvowel((char*) ""));
+  char *result = disemvowel((char*) "");
+  ASSERT_STREQ("", result);
+  free(result);  // Free the dynamically allocated memory
 }
 
 TEST(Disemvowel, HandleNoVowels) {
-  ASSERT_STREQ("pqrst", disemvowel((char*) "pqrst"));
+  char *result = disemvowel((char*) "pqrst");
+  ASSERT_STREQ("pqrst", result);
+  free(result);  // Free the dynamically allocated memory
 }
 
 TEST(Disemvowel, HandleOnlyVowels) {
-  ASSERT_STREQ("", disemvowel((char*) "aeiouAEIOUOIEAuoiea"));
+  char *result = disemvowel((char*) "aeiouAEIOUOIEAuoiea");
+  ASSERT_STREQ("", result);
+  free(result);  // Free the dynamically allocated memory
 }
 
 TEST(Disemvowel, HandleMorrisMinnesota) {
-  ASSERT_STREQ("Mrrs, Mnnst",
-		      disemvowel((char*) "Morris, Minnesota"));
+  char *result = disemvowel((char*) "Morris, Minnesota");
+  ASSERT_STREQ("Mrrs, Mnnst", result);
+  free(result);  // Free the dynamically allocated memory
 }
 
 TEST(Disemvowel, HandlePunctuation) {
-  ASSERT_STREQ("n (nxplnd) lphnt!", 
-		      disemvowel((char*) "An (Unexplained) Elephant!"));
+  char *result = disemvowel((char*) "An (Unexplained) Elephant!");
+  ASSERT_STREQ("n (nxplnd) lphnt!", result);
+  free(result);  // Free the dynamically allocated memory
 }
 
 TEST(Disemvowel, HandleLongString) {
   char *str;
-  int size;
-  int i;
-
-  size = 50000;
+  int size = 50000;
   str = (char*) calloc(size, sizeof(char));
   str[0] = 'x';
   str[1] = 'y';
   str[2] = 'z';
-  for (i = 3; i < size-1; ++i) {
+  for (int i = 3; i < size - 1; ++i) {
     str[i] = 'a';
   }
-  str[size-1] = '\0';
+  str[size - 1] = '\0';
   
-  ASSERT_STREQ("xyz", disemvowel(str));
+  char *result = disemvowel(str);
+  ASSERT_STREQ("xyz", result);
 
-  free(str);
+  free(result);  // Free the dynamically allocated memory
+  free(str);     // Free the memory allocated for the large input string
 }
 
 int main(int argc, char *argv[]) {
